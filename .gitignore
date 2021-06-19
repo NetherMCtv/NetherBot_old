@@ -1,0 +1,12 @@
+# Editeurs
+/.idea/
+
+# Modules
+/node_modules/
+
+# Env
+.env
+
+# Logs
+*-log.log*
+*-error.log*

@@ -1,14 +1,15 @@
 const Event = require('../helpers/Event');
+const ms = require('ms');
 
 class ReadyEvent extends Event {
 
-  async run(client) {
+  run(client) {
     console.log(`Connecté en tant que ${client.user.tag}.`);
 
-    const guilds = client.guilds.cache;
     const statuses = [
       ['NetherMC streamer', 'STREAMING'],
-      ['des followers', 'WATCHING'],
+      [`${client.users.cache.size} viewers`, 'WATCHING'],
+      ['Minecraft', 'PLAYING']
     ];
     let i = 0;
     setInterval(async () => {
@@ -17,7 +18,7 @@ class ReadyEvent extends Event {
         url: 'https://www.twitch.tv/NetherMCtv'
       });
       i = ++i % statuses.length;
-    }, 1e1);
+    }, ms('8s'));
   }
 
 }

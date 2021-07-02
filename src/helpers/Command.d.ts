@@ -4,7 +4,7 @@ export default class Command {
 
   private help: Help;
 
-  public static getHelp(): Help;
+  public getHelp(): Help;
 
   public setHelp(help: Help);
 
@@ -14,5 +14,21 @@ export default class Command {
 
 interface Help {
   name: string,
-  description: string
+  description: string,
+  options?: InteractionOptions[],
+  default_permission?: boolean
+}
+
+interface InteractionOptions {
+  name: string,
+  description: string,
+  type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+  required?: boolean,
+  choices?: InteractionOptionsChoices[],
+  options?: InteractionOptions[]
+}
+
+interface InteractionOptionsChoices {
+  name: string,
+  value: string | number
 }

@@ -2,9 +2,14 @@
 
 class Command {
 
-  help = {};
+  help;
 
-  static getHelp() {
+  constructor() {
+    this.help = {};
+  }
+
+
+  getHelp() {
     return this.help;
   }
 

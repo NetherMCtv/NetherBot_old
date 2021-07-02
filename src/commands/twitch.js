@@ -7,12 +7,12 @@ class TwitchCommand extends Command {
     super();
 
     this.setHelp({
-      name: 'Twitch',
+      name: 'twitch',
       description: 'followers twitch'
     });
   }
 
-  async run(message, client) {
+  run(interaction, client) {
     const embed = new Embed({
       author: {
         name: 'NetherMC',
@@ -33,7 +33,7 @@ class TwitchCommand extends Command {
         },
       ]
     }, client);
-    message.channel.send(embed);
+    return { embeds: [embed] };
   }
 
 }

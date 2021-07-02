@@ -1,20 +1,20 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Demande de fonctionnalité
+about: Suggestion de fonctionnalité pour le bot
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+### Est-ce que votre fonctionnalité est liée à un problème ?
+Une description claire du problème (s'il y en a un).
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+### Décrivez la solution que vous aimeriez.
+Une description claire de ce que vous aimeriez qu'il se passe.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### Alternatives
+Une description claire des alternatives ou autres solutions que vous avez trouvé.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### Contexte additionnel
+Ajoutez d'autres informations, comme des captures d'écran ou autre, à propos de la fonctionnalité.

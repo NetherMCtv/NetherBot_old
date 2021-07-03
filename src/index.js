@@ -1,6 +1,7 @@
 const { Client, Intents } = require('discord.js');
 const fs = require('fs');
 require('dotenv').config();
+require('../api/server');
 
 const client = new Client({ ws: { intents: Intents.ALL } });
 

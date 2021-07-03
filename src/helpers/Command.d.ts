@@ -1,18 +1,20 @@
-import { Message, Client } from 'discord.js';
+import { Message, Client, MessageEmbed } from 'discord.js';
 
 export default class Command {
 
-  private help: Help;
+  private help: ApplicationCommand;
 
-  public getHelp(): Help;
+  protected getHelp(): ApplicationCommand;
 
-  public setHelp(help: Help);
+  protected setHelp(help: ApplicationCommand);
 
   public run(message: Message, client?: Client, args?: any[]);
 
+  protected returnContent(content: string | MessageEmbed);
+
 }
 
-interface Help {
+interface ApplicationCommand {
   // Nom de la commande
   name: string,
 
@@ -20,13 +22,13 @@ interface Help {
   description: string,
 
   // Les options de la commandes
-  options?: InteractionOptions[],
+  options?: ApplicationCommandOption[],
 
   // Est-ce la permission par défaut
   default_permission?: boolean
 }
 
-interface InteractionOptions {
+interface ApplicationCommandOption {
   // Le nom de l'option
   name: string,
 
@@ -54,13 +56,13 @@ interface InteractionOptions {
   required?: boolean,
 
   // Les choix de l'option
-  choices?: InteractionOptionsChoices[],
+  choices?: ApplicationCommandOptionChoice[],
 
   // Les option de cette option
-  options?: InteractionOptions[]
+  options?: ApplicationCommandOption[]
 }
 
-interface InteractionOptionsChoices {
+interface ApplicationCommandOptionChoice {
   // Le nom du choix
   name: string,
 

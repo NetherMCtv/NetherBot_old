@@ -24,16 +24,12 @@ class MinecraftCommand extends Command {
     /* eslint-disable indent */
     switch (option) {
       case 'ip':
-        return {
-          content: 'Désolé, le serveur n\'est pas accessible pour le moment.'
-        };
+        return this.returnContent('Désolé, le serveur n\'est pas accessible pour le moment.');
       default: break;
     }
     /* eslint-enable indent */
 
-    return {
-      content: 'salut'
-    };
+    return this.returnContent('Test !');
   }
 
 }

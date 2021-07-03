@@ -1,8 +1,8 @@
 'use strict';
 
-class Command {
+const { MessageEmbed } = require('discord.js');
 
-  help;
+class Command {
 
   constructor() {
     this.help = {};
@@ -14,10 +14,22 @@ class Command {
   }
 
   setHelp(help) {
-    return this.help = help;
+    this.help = help;
   }
 
   run(message, client, args) {}
+
+  returnContent(content) {
+    /* eslint-disable indent */
+    switch (typeof content) {
+      case 'string':
+        return { content };
+      case MessageEmbed:
+        return { embeds: [content] };
+      default: break;
+    }
+    /* eslint-enable indent */
+  }
 
 }
 

@@ -16,15 +16,40 @@ class DonateCommand extends Command {
     const author = interaction.member.user;
     const embed = new Embed({
       title: 'Faire un don',
-      description: 'Pour me faire un don vous pouvez utiliser ces plateformes :\n' +
-        '> <:patreon:858715294973165618> [Patreon](https://www.patreon.com/NetherMC_)\n' +
-        '> <:streamlabs:860127269044879370> [Streamlabs](https://streamlabs.com/nethermctv/tip)\n' +
-        '> OpenCollective [OpenCollective](https://opencollective.com/NetherMC)\n' +
-        `> <:donatebot:860554358344122368> [DonateBot](https://donatebot.io/checkout/853738781541924894?buyer=${author.id})` +
-        ' (aussi accessible en tapant "donate" dans un channel)'
+      description: 'Pour me faire un don vous pouvez utiliser ces plateformes :'
     }, client);
 
-    return { embeds: [embed] };
+    return this.returnContent(null, [embed], [
+      {
+        type: 1,
+        components: [
+          {
+            type: 2,
+            style: 5,
+            url: 'https://www.patreon.com/NetherMC_',
+            label: 'Patreon'
+          },
+          {
+            type: 2,
+            style: 5,
+            url: 'https://streamlabs.com/nethermctv/tip',
+            label: 'Streamlabs'
+          },
+          {
+            type: 2,
+            style: 5,
+            url: 'https://opencollective.com/NetherMC',
+            label: 'OpenCollective'
+          },
+          {
+            type: 2,
+            style: 5,
+            url: `https://donatebot.io/checkout/853738781541924894?buyer=${author.id}`,
+            label: 'DonateBot'
+          },
+        ]
+      }
+    ]);
   }
 
 }

@@ -1,34 +1,32 @@
 'use strict';
 
-const { MessageEmbed } = require('discord.js');
-
 class Command {
 
   constructor() {
     this.help = {};
+    this.permission = null;
   }
 
-
-  getHelp() {
-    return this.help;
+  static getHelp() {
+    return (new this).help;
   }
-
   setHelp(help) {
     this.help = help;
   }
 
+  static getPermission() {
+    return (new this).permission;
+  }
+  setPermission(permission) {
+    this.permission = permission;
+  }
+
   run(message, client, args) {}
 
-  returnContent(content) {
-    /* eslint-disable indent */
-    switch (typeof content) {
-      case 'string':
-        return { content };
-      case MessageEmbed:
-        return { embeds: [content] };
-      default: break;
-    }
-    /* eslint-enable indent */
+  returnContent(content, embeds, components) {
+    return {
+      content, embeds, components
+    };
   }
 
 }

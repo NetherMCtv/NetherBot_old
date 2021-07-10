@@ -1,6 +1,7 @@
 const { Client, Intents } = require('discord.js');
 const fs = require('fs');
 require('dotenv').config();
+require('moment').locale('fr_FR');
 require('../api/server');
 
 const client = new Client({ ws: { intents: Intents.ALL } });
@@ -31,17 +32,31 @@ client.ws.on('INTERACTION_CREATE', (interaction) => {
       const commandName = file.replace('.js', '');
       const commandClass = require(`${__dirname}/commands/${file}`);
 
-      client.api.applications(client.user.id).guilds('853738781541924894').commands.post({
-        data: (new commandClass).getHelp()
-      });
+      const guildId = interaction.guild_id;
+      const clientId = client.user.id;
+
+      client.api.applications(clientId).guilds(guildId).commands.post({ data: commandClass.getHelp() });
 
       if (command === commandName) {
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: (new commandClass).run(interaction, client, args)
-          }
-        });
+        if (commandClass.getPermission()) {
+          const permission = { permissions: commandClass.getPermission() };
+          const ownerPermission = {
+            permissions: [
+              {
+                type: 2,
+                id: '807326854314590228',
+                permission: true
+              }
+            ]
+          };
+
+          const permissions = client.api.applications(clientId).guilds(guildId).commands(interaction.id).permissions;
+          permissions.put(ownerPermission).catch(() => {});
+          permissions.put(permission).catch(() => {});
+        }
+
+        const data = (new commandClass).run(interaction, client, args);
+        client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data } });
       }
     });
   });

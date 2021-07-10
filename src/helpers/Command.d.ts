@@ -1,20 +1,29 @@
-import { Message, Client, MessageEmbed } from 'discord.js';
+import { Message, Client, MessageEmbed, Snowflake, User, Emoji } from 'discord.js';
 
 export default class Command {
 
-  private help: ApplicationCommand;
+  private help: ApplicationCommandStructure;
+  private permission: ApplicationCommandPermissionsStructure;
 
-  protected getHelp(): ApplicationCommand;
+  public constructor();
 
-  protected setHelp(help: ApplicationCommand);
+  protected static getHelp(): ApplicationCommandStructure;
+  protected setHelp(help: ApplicationCommandStructure);
+
+  protected static getPermission(): ApplicationCommandPermissionsStructure[];
+  protected setPermission(permission: ApplicationCommandPermissionsStructure[]);
 
   public run(message: Message, client?: Client, args?: any[]);
 
-  protected returnContent(content: string | MessageEmbed);
+  protected returnContent(
+    content?: InteractionApplicationCommandCallbackDataStructure['content'] | null,
+    embeds?: InteractionApplicationCommandCallbackDataStructure['embeds'] | null,
+    components?: InteractionApplicationCommandCallbackDataStructure['components'] | null
+  ): InteractionApplicationCommandCallbackDataStructure;
 
 }
 
-interface ApplicationCommand {
+declare interface ApplicationCommandStructure {
   // Nom de la commande
   name: string,
 
@@ -22,13 +31,13 @@ interface ApplicationCommand {
   description: string,
 
   // Les options de la commandes
-  options?: ApplicationCommandOption[],
+  options?: ApplicationCommandOptionStructure[],
 
   // Est-ce la permission par défaut
   default_permission?: boolean
 }
 
-interface ApplicationCommandOption {
+declare interface ApplicationCommandOptionStructure {
   // Le nom de l'option
   name: string,
 
@@ -59,13 +68,88 @@ interface ApplicationCommandOption {
   choices?: ApplicationCommandOptionChoice[],
 
   // Les option de cette option
-  options?: ApplicationCommandOption[]
+  options?: ApplicationCommandOptionStructure[]
 }
 
-interface ApplicationCommandOptionChoice {
+declare interface ApplicationCommandOptionChoice {
   // Le nom du choix
   name: string,
 
   // La valeur du choix
   value: string | number
+}
+
+declare interface InteractionApplicationCommandCallbackDataStructure {
+  //
+  tts?: boolean,
+
+  //
+  content?: string,
+
+  //
+  embeds?: MessageEmbed[],
+
+  //
+  allowed_mentions?
+
+  //
+  flags?: number | InteractionApplicationCommandCallbackDataFlags
+
+  //
+  components?: ComponentStructure[]
+}
+
+declare interface ComponentStructure {
+  //
+  type:	number,
+
+  //
+  style?:	number,
+
+  //
+  label?:	string,
+
+  //
+  emoji?: Partial<Emoji>,
+
+  //
+  custom_id?:	string,
+
+  //
+  url?:	string,
+
+  //
+  disabled?: boolean,
+
+  //
+  components?: ComponentStructure[]
+}
+
+declare enum InteractionApplicationCommandCallbackDataFlags {
+  EPHEMERAL = '1 << 6'
+}
+
+declare interface MessageInteractionStructure {
+  //
+  id: Snowflake,
+
+  //
+  type,
+
+  //
+  name: string,
+
+  //
+  user: User
+}
+
+declare interface ApplicationCommandPermissionsStructure {
+  // the id of the role or user
+  id: Snowflake,
+
+  // role or user
+  type: 1 | 2,
+
+  // `true` to allow, `false` to disallow
+  permission: boolean
 }

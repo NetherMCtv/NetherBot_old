@@ -21,12 +21,10 @@ class SayCommand extends Command {
   }
 
   run(interaction, client, args) {
+    const message = args[0].value;
     const embed = new Embed({
       title: null,
-      description: args[0].value,
-      footer: {
-        text: `${interaction.member.user.name} • ${client.user.username}`
-      }
+      description: message
     }, client);
 
     return { embeds: [embed] };

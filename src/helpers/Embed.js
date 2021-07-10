@@ -8,10 +8,13 @@ class Embed {
     let embed;
 
     embed = options;
-    (
-      !embed.footer || (!embed.footer.text || !embed.footer.icon_url || !embed.footer.url)
-    ) && (embed.footer = { text: client.user.username, icon_url: client.user.avatarURL() });
-    !embed.timestamp && (embed.timestamp = Date.now());
+    if (!embed.footer || (!embed.footer.text || !embed.footer.icon_url || !embed.footer.url)) {
+      embed.footer = {
+        text: client.user.username,
+        icon_url: client.user.avatarURL()
+      };
+    }
+    if (!embed.timestamp) embed.timestamp = Date.now();
 
     return new MessageEmbed(embed);
   }

@@ -5,6 +5,7 @@ require('moment').locale('fr_FR');
 require('../api/server');
 
 const client = new Client({ ws: { intents: Intents.ALL } });
+module.exports.client = client;
 
 fs.readdir(`${__dirname}/events`, (err, events) => {
   if (err) console.error(err);

@@ -1,4 +1,4 @@
-import { EmbedFieldData, Client } from 'discord.js';
+import { EmbedFieldData } from 'discord.js';
 
 export default class Embed {
 
@@ -17,6 +17,6 @@ export default class Embed {
       icon_url?: string
     },
     timestamp?: Date | number
-  }, client: Client);
+  });
 
 }

@@ -1,10 +1,11 @@
 'use strict';
 
 const { MessageEmbed } = require('discord.js');
+const { client } = require('../index');
 
 class Embed {
 
-  constructor(options, client) {
+  constructor(options) {
     let embed;
 
     embed = options;

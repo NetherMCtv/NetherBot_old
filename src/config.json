@@ -2,6 +2,10 @@
   "welcome": {
     "role_id": "859022217950396416",
     "channel_id": "862308107250040852",
-    "message": ""
+    "message": "**Salut @member ! Bienvenue sur $server, en espérant que tu t'y sentes bien <a:Smile:863485752732811314> !**"
+  },
+  "logs": {
+    "bot": "861256821342994462",
+    "server": "864085732996808704"
   }
 }

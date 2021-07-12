@@ -7,5 +7,9 @@
   "logs": {
     "bot": "861256821342994462",
     "server": "864085732996808704"
-  }
+  },
+  "insults": [
+    "con", "pute", "putain", "merde", "fuck", "fucking", "ntm", "nique ta mère", "nique ta mere", "connard", "salope",
+    "fdp", "fils de pute", "pd"
+  ]
 }

@@ -7,7 +7,9 @@ class Logs {
   static sendToLogsChannel(event) {
     const titles = {
       guildMemberAdd: 'Nouveau membre 👋',
-      guildMemberRemove: 'Un membre est parti 😭'
+      guildMemberRemove: 'Un membre est parti 😭',
+      messageDelete: 'Message supprimé',
+      messageUpdate: 'Modification d\'un message'
     };
     const channel = client.channels.cache.get(config.logs.server);
     const embed = new Embed({

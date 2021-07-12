@@ -14,13 +14,11 @@
 
 Ce bot me sert pour différentes choses :
 - les statistiques Twitch, Twitter&hellip;
-- &hellip; (je sais pas quoi mettre 😐)
 
 ## Fonctionnalitées du bot
 
 Mon bot inclut ces fonctionnalitées :
 - les [slash commands][discord-slash-commands-faq]
-- 
 
 Si vous voulez voir ajoutée une autre fonctionnalité, vous pouvez ouvrir une issue ou une pull request.
 

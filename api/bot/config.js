@@ -1,6 +1,6 @@
-const { client } = require('../../src/index');
+const config = require('../../src/config.json');
 
 module.exports = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(client.user);
+  res.send(config);
 };

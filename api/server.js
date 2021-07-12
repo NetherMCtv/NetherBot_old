@@ -2,8 +2,12 @@ const express = require('express');
 const server = express();
 const port = 3000;
 
-server.get('/bot/info', (req, res) => require('./bot/info')(req, res));
+const req = (method, path, file) => server[method](path, (req, res) => require(file)(req, res));
+const get = (path, file) => req('get', path, file);
 
-server.all('/server/events', (req, res) => require('./server/events')(req, res));
+get('/bot/config', './bot/config');
+get('/bot/info', './bot/info');
+
+req('all', '/server/events', './server/events');
 
 server.listen(port, () => console.log(`API démarrée sur http://127.0.0.1:${port}`));

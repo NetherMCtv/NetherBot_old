@@ -1,20 +1,12 @@
 const Event = require('../helpers/Event');
 const Logs = require('../helpers/Logs');
-const { welcome } = require('../config.json');
 const moment = require('moment');
 
-class GuildMemberAddEvent extends Event {
+class GuildMemberRemoveEvent extends Event {
 
-  run(member, client) {
-    member.roles.add(welcome.role_id);
-
-    const message = welcome.message
-      .replaceAll('@member', member)
-      .replaceAll('$server', member.guild.name);
-    client.channels.cache.get(welcome.channel_id)?.send(message);
-
+  run(member) {
     Logs.sendToLogsChannel({
-      event: 'guildMemberAdd',
+      event: 'guildMemberRemove',
       details: null,
       fields: [
         {
@@ -33,4 +25,4 @@ class GuildMemberAddEvent extends Event {
 
 }
 
-module.exports = GuildMemberAddEvent;
+module.exports = GuildMemberRemoveEvent;

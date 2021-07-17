@@ -28,8 +28,7 @@ class PlayCommand extends Command {
 
     (async () => await voiceChannel.join())()
       .then(async (connection) => {
-        const ytdlConfig = await ytdl(url, { filter: 'audioonly' });
-        const dispatcher = connection.play(ytdlConfig, {
+        const dispatcher = connection.play(await this.getAudioSource(url), {
           type: 'opus'
         });
 
@@ -65,6 +64,35 @@ class PlayCommand extends Command {
         ]
       }
     ]*/);
+  }
+
+  /**
+   * @param {string} url
+   */
+  async getAudioSource(url) {
+    // YouTube
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      return await ytdl(url, {
+        filter: 'audioonly',
+        format: {
+          url,
+          isLive: true,
+          audioQuality: 'AUDIO_QUALITY_MEDIUM',
+          mimeType: 'ogg'
+        }
+      });
+    }
+
+    // SoundCloud
+    //else if (url.includes('soundcloud.com')) {}
+
+    // Spotify
+    //else if (url.includes('spotify.com')) {}
+
+    // Aucune source
+    else {
+      console.error(`"${url}" is not an audio on YouTube, SoundCloud or Spotify`);
+    }
   }
 
 }

@@ -99,10 +99,8 @@ declare interface InteractionApplicationCommandCallbackDataStructure {
   components?: ComponentStructure[]
 }
 
-export interface ComponentStructure {
-  // 1:	Action Row    A container for other components<br />
-  // 2:	Button        A button object<br />
-  // 3:	Select Menu   A select menu for picking from choices
+declare interface ComponentStructure {
+  //
   type:	number,
 
   //

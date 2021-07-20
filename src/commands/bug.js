@@ -13,14 +13,8 @@ class BugCommand extends Command {
       options: [
         {
           type: 3,
-          name: 'titre',
-          description: 'Titre du bug',
-          required: true
-        },
-        {
-          type: 3,
-          name: 'description',
-          description: 'Description du bug',
+          name: 'details',
+          description: 'Détails du bug',
           required: true
         }
       ]
@@ -28,12 +22,11 @@ class BugCommand extends Command {
   }
 
   run(interaction, client, args) {
-    const title = args[0].value;
-    const description = args[1].value;
+    const details = args[0].value;
     const author = interaction.member.user;
     author.tag = `${author.username}#${author.discriminator}`;
 
-    db.query('INSERT INTO bugs (author, title, description) VALUES (?, ?, ?)', [author.tag, title, description], (err) => {
+    db.query('INSERT INTO bugs (author, details) VALUES (?, ?, ?)', [author.tag, details], (err) => {
       if (err) throw err;
 
       const embed = new Embed({
@@ -45,15 +38,10 @@ class BugCommand extends Command {
             inline: true
           },
           {
-            name: 'Titre',
-            value: title,
+            name: 'Détails',
+            value: details,
             inline: true
-          },
-          {
-            name: 'Description',
-            value: description,
-            inline: true
-          },
+          }
         ]
       });
 

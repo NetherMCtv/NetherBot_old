@@ -1,5 +1,6 @@
 const { Client, Intents } = require('discord.js');
 const fs = require('fs');
+const fetch = require('node-fetch');
 require('dotenv').config();
 require('moment').locale('fr_FR');
 require('../api/server');
@@ -13,9 +14,9 @@ fs.readdir(`${__dirname}/events`, (err, events) => {
   events.map((event) => {
     if (!event.endsWith('.js')) return;
     const eventName = event.replace('.js', '');
-    const eventClass = require(`${__dirname}/events/${event}`);
+    const eventFunc = require(`${__dirname}/events/${event}`);
 
-    client.on(eventName, (...args) => (new eventClass).run(...args, client));
+    client.on(eventName, (...args) => eventFunc(...args, client));
   });
 });
 
@@ -39,9 +40,19 @@ client.ws.on('INTERACTION_CREATE', (interaction) => {
       client.api.applications(clientId).guilds(guildId).commands.post({ data: commandClass.getHelp() });
 
       if (command === commandName) {
-        if (commandClass.getPermission()) {
-          const permission = { permissions: commandClass.getPermission() };
-          const ownerPermission = {
+        const config = (body) => {
+          return {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`
+            },
+            body: JSON.stringify(body)
+          };
+        };
+        const ownerPermission = fetch(
+          `https://discord.com/api/v9/applications/${clientId}/guilds/${guildId}/commands/${interaction.data.id}/permissions`,
+          config({
             permissions: [
               {
                 type: 2,
@@ -49,15 +60,20 @@ client.ws.on('INTERACTION_CREATE', (interaction) => {
                 permission: true
               }
             ]
-          };
+          })
+        );
+        Promise.all([ownerPermission]).catch(console.error);
 
-          const permissions = client.api.applications(clientId).guilds(guildId).commands(interaction.id).permissions;
-          permissions.put(ownerPermission).catch(() => {});
-          permissions.put(permission).catch(() => {});
+        if (commandClass.getPermission()) {
+          const permissions = fetch(
+            `https://discord.com/api/v9/applications/${clientId}/guilds/${guildId}/commands/${interaction.data.id}/permissions`,
+            config({ permissions: commandClass.getPermission() })
+          );
+          Promise.all([permissions, ownerPermission]).catch(console.error);
         }
 
         const data = (new commandClass).run(interaction, client, args);
-        client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data } });
+        client.api.interactions(interaction.data.id, interaction.token).callback.post({ data: { type: 4, data } });
       }
     });
   });

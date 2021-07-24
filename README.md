@@ -22,6 +22,10 @@ Mon bot inclut ces fonctionnalitées :
 
 Si vous voulez voir ajoutée une autre fonctionnalité, vous pouvez ouvrir une issue ou une pull request.
 
+# Todo
+
+Tout est répertorié dans [TODO.txt](TODO.txt).
+
 ## License
 
 Le bot est open-source sous license MIT. [Voir la license](LICENSE)

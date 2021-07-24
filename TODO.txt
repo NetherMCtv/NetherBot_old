@@ -1,0 +1,5 @@
+Vocal :
+- SoundCloud et Spotify à ajouter aux plateformes supportées
+
+Général :
+- Corriger les problèmes avec les permissions sur les slash commands
